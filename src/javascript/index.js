@@ -20,6 +20,7 @@ require('svg4everybody');
 
 var accountExplorer = require('./account-explorer');
 var analytics = require('./analytics');
+var deeplinker = require('./deeplinker');
 var embedApi = require('./embed-api');
 var explorer = require('./query-explorer');
 var header = require('./header');
@@ -45,4 +46,5 @@ router()
     .case('/query-explorer/', explorer.init)
     .case('/embed-api/<page>/', embedApi.init)
     .case('/account-explorer/', accountExplorer.init)
+    .case('/deeplinker/', deeplinker.init)
     .match();

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  {%- if not title and not subtitle -%}
+    {% set subtitle = page.title %}
+  {%- endif -%}
+
+  {%- if not title -%}
+    {% set title = project.title %}
+  {%- endif -%}
+
+  {% block head_scripts %}
+    <script>
+      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+      ga('create', '{{ site.tracking_id }}', 'auto');
+    </script>
+
+    {% if site.env == 'production' %}
+      <script async src="//www.google-analytics.com/analytics.js"></script>
+    {% else %}
+      <script>
+        ga(function(tracker) {
+          tracker.set('sendHitTask', function() {
+            throw 'Abort tracking in non-production environments.'
+          });
+        });
+      </script>
+      <script async src="//www.google-analytics.com/analytics_debug.js"></script>
+    {% endif %}
+  {% endblock %}
+</head>
+<body class="Site {{ initial_state }}">
+  <h1>{{ params.titleOverwrite }}</h1>
+  <h2>Select view to continue</h2>
+  <aside class="Header-auth" id="header-auth">
+    <div class="Header-embedApi" id="embed-api-auth-container"></div>
+    <a class="Header-logout" href="https://accounts.google.com/logout">Logout</a>
+  </aside>
+  <div id="view-selector-container"></div>
+  <input type="checkbox" id="use-always-check">Use selected View automatically for future links
+  <button id="view-selector-submit">Select View</button>
+  <p id="error"></p>
+  <script>
+
+  (function(w,d,s,g,js,fs){
+    g=w.gapi||(w.gapi={});g.analytics={q:[],ready:function(f){this.q.push(f);}};
+    js=d.createElement(s);fs=d.getElementsByTagName(s)[0];
+    js.src='https://apis.google.com/js/platform.js';
+    fs.parentNode.insertBefore(js,fs);js.onload=function(){g.load('analytics');};
+  }(window,document,'script'));
+
+  gapi.analytics.ready(function() {
+
+    document.body.classList.add('is-authorizing');
+
+    function setAuthorizedState() {
+      document.body.classList.remove('is-needingAuthorization');
+      document.body.classList.remove('is-authorizing');
+      document.body.classList.add('is-authorized');
+      gapi.analytics.auth.off('error', setNeedsAuthorizingState)
+    }
+
+    function setNeedsAuthorizingState() {
+      document.body.classList.add('is-needingAuthorization');
+    }
+
+    gapi.analytics.auth.on('success', setAuthorizedState);
+    gapi.analytics.auth.once('error', setNeedsAuthorizingState);
+
+    // Authorize this user with the client ID in sitemap.yaml
+    gapi.analytics.auth.authorize({
+      {% if project.scopes -%}
+        scopes: ['{{ project.scopes | join("','") | safe }}'],
+      {%- endif %}
+      container: 'embed-api-auth-container',
+      userInfoLabel: '',
+      clientid: '{{ site.client_id }}',
+    });
+  });
+
+  </script>
+
+ 
+  <script src="/public/javascript/jquery.min.js"></script>
+
+  {% block foot_scripts %}
+  <script src="/public/javascript/embed-api/components/view-selector2.js"></script>
+  <script src="/public/javascript/bundle.js"></script>
+  {% endblock %}
+
+
+</body>
+</html>

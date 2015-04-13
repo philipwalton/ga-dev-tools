@@ -100,6 +100,13 @@ projects:
   slug: query-explorer
   status: updated
   tech: [core_reporting_api, embed_api, management_api, metadata_api]
+- title: Deeplinker
+  type: tool
+  slug: deeplinker
+  tech: [embed_api, management_api]
+  pages:
+  - title: test
+    slug: redirect
 - title: Spreadsheet Add-on
   type: tool
   slug: spreadsheet-add-on

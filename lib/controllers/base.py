@@ -18,8 +18,10 @@
 
 import webapp2
 import lib.template as template
+import logging
 
 class BaseController(webapp2.RequestHandler):
   def get(self, project='index', page='index'):
+    logging.error(project)
     html = template.render(project, page)
     self.response.write(html)

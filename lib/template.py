@@ -20,6 +20,8 @@ import jinja2
 import os.path
 import yaml
 
+import logging
+
 JINJA_ENVIRONMENT = jinja2.Environment(
   loader=jinja2.FileSystemLoader('templates'),
   extensions=['jinja2.ext.autoescape'],
@@ -77,12 +79,13 @@ def __get_page(project, page):
   else:
     return [i for i in project['pages'] if i['slug'] == page][0]
 
-def render(project='index', page='index'):
+def render(project='index', page='index', opt_params=None):
   try:
     template_data = {
       'site': data,
       'project': __get_project(project),
-      'page': __get_page(project, page)
+      'page': __get_page(project, page),
+      'params': opt_params
     }
 
     if project == 'index':

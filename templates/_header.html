@@ -1,11 +1,13 @@
 <header class="Header" id="header">
 
   <div class="Header-block">
+    {%- if not params.nosidebar -%}
     <span class="Header-menu" id="header-menu">
       <svg class="Icon" viewBox="0 0 16 16">
         <use xlink:href="/public/images/icons.svg#icon-menu"></use>
       </svg>
     </span>
+    {%- endif -%}
 
     {% include '_logo.html' %}
 

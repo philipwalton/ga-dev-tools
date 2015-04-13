@@ -1,5 +1,9 @@
 <div class="Titles Titles--hero">
-  <h1 class="Titles-main">{{ title }}</h1>
+  {% if params.titleOverwrite %}
+    <h1 class="Titles-main">{{ params.titleOverwrite }}</h1>
+  {% else %}
+    <h1 class="Titles-main">{{ title }}</h1>
+  {% endif %}
   {% if subtitle %}
     <div class="Titles-sub">{{ subtitle }}</div>
   {% endif %}

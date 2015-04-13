@@ -1,0 +1,65 @@
+{% extends 'loginable.html' %}
+
+{% block content %}
+
+{%- if params.description -%}
+<section id="deeplink-description">
+  <h2>Overview</h2>
+  <p>The Deeplinker is a tool that enables the creation of shareable links into the Google Analytics user interface. Use a Chrome Extension to create the shareable links. When someone else clicks on a link you've created, they are redirected to a page to select which Google Analytics account they'd like to use.</p>
+</section>
+{%- endif -%}
+
+{%- if params.searchBox -%}
+<div class="Box" id="account-explorer-container">
+  <div class="AuthOnly AuthOnly--tool">
+    <header class="Box-header">
+      <div class="AccountExplorerSearch">
+        <h3 class="AccountExplorerSearch-title">
+          <span class="AccountExplorerSearch-icon">
+            <svg class="Icon" viewBox="0 0 16 16">
+              <use xlink:href="/public/images/icons.svg#icon-search"></use>
+            </svg>
+          </span>
+          Search for your account information&hellip;
+        </h3>
+        <input class="AccountExplorerSearch-control Control" id="search-box" placeholder="Start typing to search...">
+        <h3 class="AccountExplorerSearch-title">
+          <span class="AccountExplorerSearch-icon">
+            <svg class="Icon" viewBox="0 0 16 16">
+              <use xlink:href="/public/images/icons.svg#icon-eye"></use>
+            </svg>
+          </span>
+          &hellip;or browse through all your accounts
+        </h3>
+        <div id="view-selector-container"></div>
+      </div>
+    </header>
+    <main class="AccountExplorerResults">
+      <h3 class="AccountExplorerResults-title" id="results-title"></h3>
+      <div id="results-container"></div>
+    </main>
+  </div>
+</div>
+{%- endif -%}
+
+{%- if params.showSelection -%}
+<div id="current-selection" style="display: none">
+  <p>The following Google Analytics View will be used automatically for future links:</p>
+  <p id="account-selection-name"></p>
+  <p id="property-selection-name"></p>
+  <p id="view-selection-name"></p>
+  <button id="remove-selection">Remove Selection</button>
+
+</div>
+{%- endif -%}
+
+{% endblock %}
+
+{% block tech_content %}
+  The {{ project.title }} uses the <a href="{{ site.tech.embed_api.url }}"> {{ site.tech.embed_api.name }}</a> and the custom <code>ViewSelector2</code> component, which queries the <a href="{{ site.tech.management_api.url }}">{{ site.tech.management_api.name }}</a> under the hood to get a list of all accounts the current user can access.
+{% endblock %}
+
+{% block foot_scripts %}
+<script src="/public/javascript/embed-api/view-selector2.js"></script>
+{{ super() }}
+{% endblock %}

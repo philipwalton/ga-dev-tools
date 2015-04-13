@@ -33,10 +33,12 @@
 </head>
 <body class="Site {{ initial_state }}">
 
+  {%- if not params.nosidebar -%}
   <aside class="Site-sidebar" id="sidebar">
     {% include '_nav-header.html' %}
     {% include '_nav.html' %}
   </aside>
+  {%- endif -%}
 
   {##
    # TODO(philipwalton): the statement below is needed due to a bug in Jinja.
