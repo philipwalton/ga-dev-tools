@@ -34,12 +34,17 @@ router = webapp2.WSGIApplication([
   # Main routes
   (r'/query-explorer/csvhandler.*', ExplorerCsvController),
   (r'/r.*', DeepLinkerRedirectController),
-  (r'/deeplinker.*', DeepLinkerLandingPageController),
+
+  RedirectRoute(r'/deeplinker/',
+      handler=DeepLinkerLandingPageController, name='DeepLinker',
+      strict_slash=True),
   RedirectRoute(r'/',
       handler=BaseController, name='Home', strict_slash=True),
   RedirectRoute(r'/<project>/',
       handler=BaseController, name='Project', strict_slash=True),
   RedirectRoute(r'/<project>/<page>/',
       handler=BaseController, name='Page', strict_slash=True),
+
+  (r'/deeplinker.*', DeepLinkerLandingPageController),
 
 ], debug=False)

@@ -70,7 +70,7 @@ function setViewSelector(summaries, viewId) {
     document.location = redirectUrl;
 
     function getAccountString() {
-      var accountString = 'a' + viewSelector.account.id + 'w' + 
+      var accountString = 'a' + viewSelector.account.id + 'w' +
       viewSelector.property.internalWebPropertyId + 'p' + viewSelector.view.id;
       return accountString;
     }

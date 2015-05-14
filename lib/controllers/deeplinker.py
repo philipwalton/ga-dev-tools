@@ -46,7 +46,7 @@ class DeepLinkerLandingPageController(BaseController):
       #titleOverwrite = "Select view to be redirected to " + \
       #("\"" + title + "\"" if title else "Google Analytics")
       #params = {
-      #  "nosidebar": True, 
+      #  "nosidebar": True,
       #  "description": False,
       #  "searchBox": True,
        # "titleOverwrite": titleOverwrite
@@ -57,9 +57,10 @@ class DeepLinkerLandingPageController(BaseController):
       self.response.write(html)
       #super(DeepLinkerLandingPageController, self).get("deeplinker", "redirect")
     elif('dl' in self.request.cookies):
+      logging.error(self.request.cookies['dl'])
       params = {
         "description": True,
-        "searchBox": False, 
+        "searchBox": False,
         "showSelection": self.request.cookies['dl']
         }
       html = template.render("deeplinker", "index", params)
