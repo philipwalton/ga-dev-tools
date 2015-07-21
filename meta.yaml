@@ -86,6 +86,10 @@ projects:
     slug: third-party-visualizations
     tech: [embed_api, real_time_reporting_api]
     excerpt: 'The Embed API make it easy to query data and display it in a Google Chart. But it also allows you to access the raw data so you can display it however you want. This example uses the <a href="http://www.chartjs.org/">Chart.js</a> visualization library.'
+  - title: Query Explorer Stats
+    slug: query-explorer-stats
+    tech: [embed_api]
+    excerpt: 'Blah blah blah.'
 - title: Enhanced Ecommerce
   type: demo
   slug: enhanced-ecommerce

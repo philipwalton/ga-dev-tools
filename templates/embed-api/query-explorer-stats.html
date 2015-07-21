@@ -1,0 +1,53 @@
+{% extends 'embed-api/demo.html' %}
+
+{% block content %}
+
+<section>
+  <h2>Demo Overview</h2>
+  <p>{{ page.excerpt | safe }}</p>
+  <p>The Embed API is built on top of the <a href="https://developers.google.com/api-client-library/javascript/">Google APIs client library</a>, which means you don't just get access to the reporting API, you get access to everything.
+
+  <p>In addition to showing Chart.js visualizations, this example uses the underlying client library to query data from the <a href="https://developers.google.com/analytics/devguides/reporting/realtime/">Real Time Reporting API</a>.
+</section>
+
+<section>
+<h2>How it works</h2>
+
+<p>You can recreate the demo above by copy and pasting the following code into an HTML file running on a web server. Feel free to add some CSS to spice it up a bit!</p>
+
+<p>If you want to know more, check out the <a href="https://developers.google.com/analytics/devguides/reporting/embed/">Embed API documentation</a> on our developers site.</p>
+
+<h3>Step 1: Load the Embed API library.</h3>
+
+<pre>
+{%- filter forceescape -%}
+<script>
+{% include 'embed-api/code/_snippet.js' %}
+</script>
+{%- endfilter -%}
+</pre>
+
+<h3>Step 4: Write the dashboard code.</h3>
+
+<pre>
+{%- filter forceescape -%}
+<script>
+
+{% include 'embed-api/code/_query-explorer-stats.js' %}
+</script>
+{%- endfilter -%}
+</pre>
+
+</section>
+{% endblock %}
+
+{% block tech_content %}
+  The {{ page.title }} demo uses the <code>Data</code> component of the <a href="{{ site.tech.embed_api.url }}">{{ site.tech.embed_api.name }}</a>, which queries the <a href="{{ site.tech.core_reporting_api.url }}">{{ site.tech.core_reporting_api.name }}</a> behind the scenes. It also uses a custom <code>ViewSelector2</code> component, which uses the <a href="{{ site.tech.management_api.url }}">{{ site.tech.management_api.name }}</a> to get a list of accounts the current user can access. Lastly, it uses a custom <code>ActiveUsers</code> component to query the <a href="{{ site.tech.real_time_reporting_api.url }}">{{ site.tech.real_time_reporting_api.name }}</a> and see how many users are on the site now.
+{% endblock %}
+
+{% block foot_scripts %}
+{{ super() }}
+<script>
+{% include 'embed-api/code/_query-explorer-stats.js' %}
+</script>
+{% endblock %}
